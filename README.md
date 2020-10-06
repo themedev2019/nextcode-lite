@@ -16,3 +16,46 @@ NextCode s a best Options Framewok for Create Admin Options, Custom Posttype, Me
 
 # Quick Start
 <p>Open your current theme <strong>functions.php</strong> file and paste this code.</p>
+<div class="highlight highlight-text-html-php"><pre><span class="pl-c">// Check core class for avoid errors</span>
+<span class="pl-k">if</span>( <span class="pl-en">class_exists</span>( <span class="pl-s">'CSF'</span> ) ) {
+
+  <span class="pl-c">// Set a unique slug-like ID</span>
+  <span class="pl-s1"><span class="pl-c1">$</span>prefix</span> = <span class="pl-s">'my_framework'</span>;
+
+  <span class="pl-c">// Create options</span>
+  <span class="pl-c1">CSF</span>::<span class="pl-en">createOptions</span>( <span class="pl-s1"><span class="pl-c1">$</span>prefix</span>, <span class="pl-en">array</span>(
+    <span class="pl-s">'menu_title'</span> =&gt; <span class="pl-s">'My Framework'</span>,
+    <span class="pl-s">'menu_slug'</span>  =&gt; <span class="pl-s">'my-framework'</span>,
+  ) );
+
+  <span class="pl-c">// Create a section</span>
+  <span class="pl-c1">CSF</span>::<span class="pl-en">createSection</span>( <span class="pl-s1"><span class="pl-c1">$</span>prefix</span>, <span class="pl-en">array</span>(
+    <span class="pl-s">'title'</span>  =&gt; <span class="pl-s">'Tab Title 1'</span>,
+    <span class="pl-s">'fields'</span> =&gt; <span class="pl-en">array</span>(
+
+      <span class="pl-c">// A text field</span>
+      <span class="pl-en">array</span>(
+        <span class="pl-s">'id'</span>    =&gt; <span class="pl-s">'opt-text'</span>,
+        <span class="pl-s">'type'</span>  =&gt; <span class="pl-s">'text'</span>,
+        <span class="pl-s">'title'</span> =&gt; <span class="pl-s">'Simple Text'</span>,
+      ),
+
+    )
+  ) );
+
+  <span class="pl-c">// Create a section</span>
+  <span class="pl-c1">CSF</span>::<span class="pl-en">createSection</span>( <span class="pl-s1"><span class="pl-c1">$</span>prefix</span>, <span class="pl-en">array</span>(
+    <span class="pl-s">'title'</span>  =&gt; <span class="pl-s">'Tab Title 2'</span>,
+    <span class="pl-s">'fields'</span> =&gt; <span class="pl-en">array</span>(
+
+      <span class="pl-c">// A textarea field</span>
+      <span class="pl-en">array</span>(
+        <span class="pl-s">'id'</span>    =&gt; <span class="pl-s">'opt-textarea'</span>,
+        <span class="pl-s">'type'</span>  =&gt; <span class="pl-s">'textarea'</span>,
+        <span class="pl-s">'title'</span> =&gt; <span class="pl-s">'Simple Textarea'</span>,
+      ),
+
+    )
+  ) );
+
+}</pre></div>
