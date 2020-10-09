@@ -18,7 +18,6 @@ NextCode s a best Options Framewok for Create Admin Options, Custom Posttype, Me
 # Quick Start
 <p>Open your current theme <strong>functions.php</strong> file and paste this code.</p>
 <div class="highlight highlight-text-html-php">
-<pre>
 // load NextCode Fremwrok
 if( did_action('nextcode/loaded') ){
 	// load framework
@@ -169,7 +168,6 @@ if( did_action('nextcode/loaded') ){
 		]
 	);
 }
-</pre>
 </div>
 
 # Documentation
