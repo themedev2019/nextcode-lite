@@ -34,6 +34,7 @@ Class Ncode_Shortcode extends Ncode_common{
         'class'       => '',
         'fields'      => [],
         'params'      => [],
+        'multistep'      => false,
        
     ];
 
@@ -61,11 +62,17 @@ Class Ncode_Shortcode extends Ncode_common{
         // set menu key
         $this->shortcode = !empty($key) ? $key : '';
         $this->options_key = $key;
+        
         $this->callback = isset($this->args['callback']) ? $this->args['callback'] : '';
         $this->params = isset($this->args['params']) ? $this->args['params'] : [];
         $this->form = isset($this->args['form']) ? $this->args['form'] : [];
         $this->submit = isset($this->args['submit']) ? $this->args['submit'] : ['name' => 'submit-application', 'type' => 'button', 'value' => 'Apply Now'];
-        
+        $this->multistep = isset($this->args['multistep']) ? $this->args['multistep'] : false;
+        if($this->multistep){
+            $this->args['classname'] .= ' nxmultistep-form';
+            $this->submit['class'] = 'nxmulti-step-submit';
+        }
+
         $this->args['options_type'] = 'shortcode';
         $this->args['options_key'] = $this->options_key;
         $this->args['callback'] = $this->callback;
@@ -73,14 +80,16 @@ Class Ncode_Shortcode extends Ncode_common{
         $this->args['sections'] = $this->sections;
         $this->args['fields'] = $this->fields;
 
-        $this->args['options_array'] = $this->shortcode;
-
+       
         // extraparans
         $this->pre_sections = $this->set_section($this->sections);
         $this->pre_subsections = $this->set_sub_section($this->sections);
         $this->pre_tabs = apply_filters("ncode_{$key}_tabs_shortcode", $this->set_tabs($this->sections) );
         $this->pre_fields = apply_filters("ncode_{$key}_pre_fields_shortcode", $this->set_fields($this->sections) );
         
+        if( empty($this->pre_tabs) && !empty($this->args['fields']) ){
+            $this->args['options_array'] = $this->shortcode;
+        }
         // render shortcode
         add_shortcode( $this->shortcode, [ &$this, '_render_shortcode'] );
     }
@@ -117,11 +126,17 @@ Class Ncode_Shortcode extends Ncode_common{
         $content = ob_get_contents();
         ob_end_clean();
 
-        if( empty($this->callback) ){
-            return $content;
-        } else {
-            call_user_func( $this->callback, $content, $this->args, $this->shortcode );
-        }
+        if ( !is_admin() ) {
+
+            if( empty($this->callback) ){
+                return $content;
+            } else {
+                
+                call_user_func( $this->callback, $content, $this->args, $this->shortcode );
+
+            }
+        } 
+        return;
         
     }
    

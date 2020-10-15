@@ -534,7 +534,7 @@ body.ncode-disabled:before { content: "" !important; position: fixed !important;
     resize: none;
     overflow: hidden;
     min-height: 100px;
-    padding: 5px 0px;
+    padding: 5px 5px;
     font-size: 12px;
 }
 
@@ -2064,11 +2064,10 @@ body.ncode-disabled:before { content: "" !important; position: fixed !important;
 .nx-shortcode .settings-content .ncode-section {
     border-bottom: 0px solid #e5e5e5;
 }
-.nx-shortcode .nextcode-content-area{
-    padding: 5px;
-}
-.nextcode-section .submit-button-section{
+
+.nextcode-section .submit-button-section {
     text-align: left;
+    margin-bottom: 10px;
 }
 .nextcode-section .submit-button-section button{
     padding: 7px 10px;
@@ -2081,4 +2080,189 @@ body.ncode-disabled:before { content: "" !important; position: fixed !important;
     font-size: 14px;
     cursor: pointer;
     font-weight: 400;
+    margin-left: 12px;
+
 }
+.nextcode-section .submit-button-section button[nxsubmit-type=pre]::before{
+    content: "\f104";
+    font-family: "Font Awesome 5 Free";
+    margin-right: 4px;
+    font-size: 13px;
+}
+
+.nextcode-section .submit-button-section button[nxsubmit-type=next]::after{
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    margin-left: 4px;
+    font-size: 13px;
+}
+
+.nx-shortcode > h2, .nx-shortcode > p{
+    padding: 5px 12px;
+    line-height: 1.5em;
+    margin: 0px;
+}
+.nextcode-section-metabox.nx-shortcode .settings-content .ncode-section{
+    padding: 10px;
+    
+}
+
+/*multistep form*/
+
+.nxmultistep-form .nav-setting{
+    margin: 10px 0px;
+    overflow: hidden;
+    counter-reset: step;
+    direction: ltr !important;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nxmultistep-form .nav-setting li {
+    display: block !important;
+    position: relative;
+    margin: 0px;
+    width: 100%;
+    text-align: center;
+}
+.nxmultistep-form .nav-setting li a{
+    padding: 0px;
+
+}
+.nxmultistep-form .nav-setting li.active a{
+    color: #ff6502;
+    
+}
+.nxmultistep-form .nav-setting li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 40px;
+    line-height: 40px;
+    display: block;
+    font-size: 17px;
+    color: #fff;
+    background: #333;
+    border-radius: 3px;
+    z-index: 2;
+    position: relative;
+    margin: 0 auto 5px auto;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+
+.nxmultistep-form .nav-setting li.active {
+    background-color:transparent;
+    border: none;
+}
+.nxmultistep-form .nav-setting li:after{
+    content: unset;
+}
+.nxmultistep-form .nav-setting li:not(first-child):after, .nxmultistep-form .nav-setting li.active:not(first-child):after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #333;
+    position: absolute;
+    left: -50%;
+    top: 18px !important;
+    z-index: 0;
+    transform: unset !important;
+    right: auto !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+.nxmultistep-form .nav-setting li.active:before, .nxmultistep-form .nav-setting li.active:after {
+    background: #ff6502 !important;
+    color: white;
+}
+
+.nxmultistep-form .nav-setting li:first-child:after{
+    opacity: 0;
+    display: none;
+    content: unset;
+}
+
+.nxmultistep-form .submit-button-section .nxmulti-step-preview, .nxmultistep-form .submit-button-section .nxmulti-step-submit{
+    min-width: 100px;
+    background: #ff6502;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 6px 5px;
+    margin: 0px 0px 0px 10px;
+}
+
+.nxmultistep-form .submit-button-section .nxmulti-step-submit{
+    background: #333;
+}
+
+.nextcode-section.nxmultistep-form .message-view {
+    padding: 10px;
+    top: 50%;
+    left: 30%;
+    padding: 10px 10px;
+    background: #ef8788eb;
+    color: #fff;
+    font-weight: 500;
+}
+
+
+.left-display.nxmultistep-form .nav-setting{
+    display: block;
+    justify-content: normal;
+    margin-left: 10px;
+}
+
+.left-display.nxmultistep-form .nav-setting li {
+   
+    min-height: 120px;
+}
+
+.left-display.nxmultistep-form .nav-setting li:not(first-child):after, .left-display.nxmultistep-form .nav-setting li.active:not(first-child):after {
+    content: '';
+    width: 2px;
+    height: 100%;
+    background: #333;
+    position: absolute;
+    left: 19px;
+    top: -100% !important;
+    z-index: 0;
+    transform: unset !important;
+    right: auto !important;
+    margin: 0 !important;
+    /* height: 2px !important; */
+    border: none !important;
+}
+
+.left-display.nxmultistep-form .nav-setting li {
+    display: inline-flex !important;
+    margin: 0px;
+    width: auto;
+    text-align: center;
+}
+.left-display.nxmultistep-form .nav-setting li:before {
+    height: 40px;
+}
+.left-display.nxmultistep-form .nav-setting li a{
+    padding: 10px 3px;
+
+}
+
+.dark-mode.nxmultistep-form .nextcode-nav-menu .nav-setting li.active {
+    background-color: transparent;
+}
+
+.dark-mode.nx-shortcode > h2, .dark-mode.nx-shortcode > p {
+    color: #fff;
+}
+
+.nextcode-section.nxmultistep-form .settings-content {
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+

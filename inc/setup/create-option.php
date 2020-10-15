@@ -376,6 +376,7 @@ Class Ncode_Create_Option{
         wp_enqueue_script('nx-repeater');
         wp_enqueue_script('nx-icons');
         wp_enqueue_script('nx-code');
+        wp_enqueue_script('nx-multistep');
 
         // select2
         wp_enqueue_script('nextcode-select2');

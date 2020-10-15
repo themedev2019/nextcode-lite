@@ -29,6 +29,7 @@ class Ncode_Enqueue extends Ncode_common
 		wp_register_script( 'nx-icons', parent::_plugin_url() . 'assets/nx/nx-icons.js', [ 'jquery' ], parent::_version(), true );
 		wp_register_script( 'nx-code', parent::_plugin_url() . 'assets/nx/nx-code.js', [ 'jquery' ], parent::_version(), true );
 		wp_register_script( 'nx-repeater', parent::_plugin_url() . 'assets/nx/nx-repeater.js', ['nx-code'], parent::_version(), true );
+		wp_register_script( 'nx-multistep', parent::_plugin_url() . 'assets/nx/nx-multistep.js', ['jquery'], parent::_version(), true );
 		
 		wp_register_style( 'nextcode-style', parent::_plugin_url() . 'assets/style.css', false, parent::_version() );
         wp_register_script( 'nextcode-js', parent::_plugin_url() . 'assets/script.js', [ 'jquery', 'media-upload', 'thickbox'], parent::_version(), true );

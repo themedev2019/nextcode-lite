@@ -13,7 +13,7 @@ final class Ncode_Plugin{
     }
     
     public static function version(){
-        return '1.0.0';
+        return '1.0.1';
     }
    
     public static function php_version(){

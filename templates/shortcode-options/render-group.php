@@ -1,4 +1,7 @@
-<section class="nextcode-section nextcode-section-metabox taxonomy nx-shortcode <?php echo esc_attr($this->args['display_style']);?>-display <?php echo esc_attr($this->args['theme']);?>-mode" >
+<section class="nextcode-section nextcode-section-metabox taxonomy nx-shortcode <?php echo esc_attr($this->args['display_style']);?>-display <?php echo esc_attr($this->args['theme']);?>-mode <?php echo esc_attr($this->args['classname']);?>" >
+    <?php if( !empty($this->args['title']) ) { _e('<h2>');  _e($this->args['title'], 'next-course'); _e('</h2>'); }?>
+    <?php if( !empty($this->args['description']) ) { _e('<p>');  _e($this->args['description'], 'next-course'); _e('</p>'); }?>
+    
     <?php if( !empty($this->form) ){ 
         $attribute = '';
         foreach( $this->form as $k=>$v){
@@ -138,7 +141,7 @@
                  $html = isset($this->submit['value']) ? $this->submit['value'] : 'Submit';
                 ?>
                 <div class="submit-button-section">
-                        <button <?php _e($attribute);?>><?php _e($html, 'nextcode');?></button>
+                    <button <?php _e($attribute);?>><?php _e($html, 'nextcode');?></button>
                 </div>
             <?php }?>
             

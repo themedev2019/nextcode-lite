@@ -186,16 +186,16 @@ Class Ncode_Load
 
     public function _action_links($links){
         //$links[] = '<a class="next-highlight-b" href="' . admin_url( 'admin.php?page=nextcode' ).'"> '. __('Settings', 'nextcode').'</a>';
-		$links[] = '<a class="next-highlight-a" href="http://ddesks.com/ncode/pricing/" target="_blank"> '. __('Buy Now', 'nextcode').'</a>';
+		$links[] = '<a class="next-highlight-a" href="https://nextcode.themedev.net/pricing/" target="_blank"> '. __('Buy Now', 'nextcode').'</a>';
 	    return $links;
     }
 
     public function _plugin_row_meta( $links, $file  ){
        if ( strpos( $file, plugin_basename( \NextCode\Ncode_Plugin::plugin_file() )) !== false ) {
             $new_links = array(
-                'demo' => '<a class="next-highlight-b" href="http://ddesks.com/ncode" target="_blank"><span class="dashicons dashicons-welcome-view-site"></span>'. __('Live Demo', 'nextcode').'</a>',
-                'doc' => '<a class="next-highlight-b" href="" target="_blank"><span class="dashicons dashicons-media-document"></span>'. __('User Guideline', 'nextcode').'</a>',
-                'support' => '<a class="next-highlight-b" href="" target="_blank"><span class="dashicons dashicons-editor-help"></span>'. __('Support', 'nextcode').'</a>'
+                'demo' => '<a class="next-highlight-b" href="https://nextcode.themedev.net/" target="_blank"><span class="dashicons dashicons-welcome-view-site"></span>'. __('Live Demo', 'nextcode').'</a>',
+                'doc' => '<a class="next-highlight-b" href="https://themedev.net/docs-html/next-code.html" target="_blank"><span class="dashicons dashicons-media-document"></span>'. __('User Guideline', 'nextcode').'</a>',
+                'support' => '<a class="next-highlight-b" href="http://support.themedev.net/" target="_blank"><span class="dashicons dashicons-editor-help"></span>'. __('Support', 'nextcode').'</a>'
             );
 
             $links = array_merge( $links, $new_links );
