@@ -176,6 +176,7 @@ Class Ncode_Typography Extends Ncode_common{
 
     public function font_family(){
         return apply_filters( 'ncode_fields_typography_fontfamily', [
+            'inherit' => esc_html__( 'Default', 'nextcode' ),
             'Arial, Helvetica, sans-serif' => 'Arial',
             "'Arial Black', Gadget, sans-serif" => 'Arial Black' ,
             "'Comic Sans MS', cursive, sans-serif" => 'Comic Sans MS',
@@ -284,7 +285,7 @@ Class Ncode_Typography Extends Ncode_common{
                 continue;
             }
             $ex = '';
-            if( in_array($k, ['line-height', 'font-size', 'letter-spacing', 'word-spacing']) ){
+            if( in_array($k, apply_filters( 'ncode_fields_typography_render_units', ['line-height', 'font-size', 'letter-spacing', 'word-spacing']) ) ){
                 $ex = 'px';
             }
             $render .=  "$k: $v$ex;";

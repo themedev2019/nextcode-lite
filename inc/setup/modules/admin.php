@@ -288,7 +288,7 @@ Class Ncode_Admin extends Ncode_common{
         if( !empty($this->set_outputs) ){
             $custom_css = $this->_render_css($settings, $this->set_outputs, $this->pre_fields);
         }
-           
+         
         wp_add_inline_style( $this->args['css_render'], $custom_css );
    }
 }

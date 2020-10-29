@@ -236,15 +236,22 @@ class Ncode_common
 
   public $setti = [];
   public $optkey = [];
+  public $optType = [];
+  public $optIds = 0;
   public $optdat = [];
   public $argm = [];
 
   public function target_toggle( $params = [], $setting = [], $key = '' ){
       $this->ky = $key;
       $this->setti = $setting;
-      $this->optkey = $this->setti['options_key'];
-      $this->optdat = get_option( $this->optkey, []);
       $this->argm = $params;
+      
+      $this->optkey = isset($setting['options_key']) ? $setting['options_key'] : '';
+      $this->optType = isset($setting['options_type']) ? $setting['options_type'] : 'options';
+      $this->optIds = isset($setting['options_ids']) ? $setting['options_ids'] : 0;
+
+      $this->optdat = $this->_get_options( $this->optkey, $this->optType, $this->optIds);
+
       // target toggle
       $target_toggle = isset( $this->argm['target_toggle'] ) ? $this->argm['target_toggle'] : '';
       $target_section = isset( $target_toggle['section'] ) ? $target_toggle['section'] : '';

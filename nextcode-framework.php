@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
  * Description: The NextCode is an Option Framework for Theme Builder.
  * Plugin URI: https://nextcode.themedev.net/
  * Author: ThemeDev
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author URI: http://themedev.net
  *
  * Text Domain: nextcode

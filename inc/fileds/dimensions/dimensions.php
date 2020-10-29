@@ -95,8 +95,14 @@ Class Ncode_Dimensions Extends Ncode_common{
         $bottom = ($value['bottom']) ?? '';
         $left = ($value['left']) ?? '';
         $unit = ($value['unit']) ?? '';
-       
-        $render_css = ''.$top.$unit.' '.$right.$unit.' '.$bottom.$unit.' '.$left.$unit;
+        
+        $render_css = '';
+        if( $top != '' || $right != '' || $bottom != '' || $left != ''){
+            $render_css = ''.$top.$unit.' '.$right.$unit.' '.$bottom.$unit.' '.$left.$unit;
+        } else{
+            return;
+        }
+        
         
         $render = !empty($render) ? $render : 'color';
         if( is_array($selector) && !empty($selector) ){

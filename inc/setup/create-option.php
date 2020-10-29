@@ -386,6 +386,11 @@ Class Ncode_Create_Option{
         wp_enqueue_style('nextcode-style');
         wp_enqueue_script('nextcode-js');
         
+        // code
+        wp_enqueue_style('ncode-code');
+        wp_enqueue_script('ncode-code');
+        wp_enqueue_script('ncode-code-php');
+        
 
             // Font awesome 4 and 5 loader
         $min = '.min';

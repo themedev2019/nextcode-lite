@@ -140,6 +140,10 @@ Class Ncode_Border Extends Ncode_common{
             $render_css .= "border-bottom-left-radius: $radius_left$unit;";
         }
 
+        if($style == 'none'){
+            $render_css = "border-style: none;";
+        }
+
         if( is_array($selector) && !empty($selector) ){
             foreach($selector as $vs){
                 if( empty($vs) ){

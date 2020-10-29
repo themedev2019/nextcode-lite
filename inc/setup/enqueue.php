@@ -53,11 +53,19 @@ class Ncode_Enqueue extends Ncode_common
         wp_register_script( 'nextcode-color', parent::_plugin_url() . 'assets/color/pickr.min.js', [ 'jquery'], parent::_version(), true );
         wp_register_script( 'nextcode-color5', parent::_plugin_url() . 'assets/color/pickr.es5.min.js', [ 'jquery'], parent::_version(), true );
 		
-		 // code editor 
-		 wp_register_script( 'ncode-code_editor', parent::_plugin_url() . 'assets/nx/code-editor/code-editor.js', [ 'jquery'], parent::_version(), true );
-		 wp_register_script( 'ncode-code_editor_css', parent::_plugin_url() . 'assets/nx/code-editor/css-editor.js', [ 'jquery'], parent::_version() );
-		 wp_register_style( 'ncode-code_editor', parent::_plugin_url() . 'assets/nx/code-editor/code-editor.css', false, parent::_version() );
-		
+		// code editor 
+		wp_register_script( 'ncode-code_editor', parent::_plugin_url() . 'assets/nx/code-editor/code-editor.js', [ 'jquery'], parent::_version(), true );
+		wp_register_script( 'ncode-code_editor_css', parent::_plugin_url() . 'assets/nx/code-editor/css-editor.js', [ 'jquery'], parent::_version() );
+		wp_register_style( 'ncode-code_editor', parent::_plugin_url() . 'assets/nx/code-editor/code-editor.css', false, parent::_version() );
+	
+		// code
+		wp_register_script( 'ncode-code', parent::_plugin_url() . 'assets/nx/code/prism.js', [ 'jquery'], parent::_version() );
+		wp_register_script( 'ncode-code-php', parent::_plugin_url() . 'assets/nx/code/prism-php.min.js', [ 'jquery'], parent::_version() );
+		wp_register_style( 'ncode-code', parent::_plugin_url() . 'assets/nx/code/prism.css', false, parent::_version() );
+	
+		// ads css
+		wp_register_style( 'themedev_ads', self::_plugin_url() . 'assets/ads.css', false, parent::_version() );
+        wp_enqueue_style('themedev_ads');
 	}
 
 	public function enqueue_front(){

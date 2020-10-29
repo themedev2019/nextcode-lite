@@ -1,10 +1,10 @@
 <?php
-namespace NextCode\Inc\Fileds\Heading;
+namespace NextCode\Inc\Fileds\Content;
 defined( 'ABSPATH' ) || exit;
 
 use \NextCode\Inc\Setup\Ncode_common as Ncode_common;
 
-Class Ncode_Heading Extends Ncode_common{
+Class Ncode_Content Extends Ncode_common{
 
     private $settings = [];
     private $key = '';
@@ -13,7 +13,7 @@ Class Ncode_Heading Extends Ncode_common{
 
     private $args = [
         'id'    => '',
-        'type'    => 'heading',
+        'type'    => 'content',
         'content'   => '',
         'sub_content'   => '',
         'tag'       => '',
@@ -35,6 +35,13 @@ Class Ncode_Heading Extends Ncode_common{
         
         $this->args = $params;
         
+        $callback = isset($this->args['callback']) ? $this->args['callback'] : '';
+        $callback_type = isset($this->args['callback_type']) ? $this->args['callback_type'] : 'text';
+        if( !empty($callback) && function_exists( $callback ) ){
+            $args = isset($this->args['args']) ? $this->args['args'] : null;
+            $this->args['sub_content'] = call_user_func( $callback, $args );
+        }
+        $style = isset($this->args['style']) ? $this->args['style'] : '';
         $id = $this->args['id'];
         
         // load js / css

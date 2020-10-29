@@ -15,7 +15,10 @@ Class Ncode_Load
             add_filter( 'plugin_action_links_' . plugin_basename( \NextCode\Ncode_Plugin::plugin_file() ), [ $this , '_action_links'] );
             add_filter( 'plugin_row_meta', [ $this, '_plugin_row_meta'], 10, 2 );
             
+             // proactive
+             Proactive\Init::instance()->_init();
         }
+
         
         // load icons in modal
         add_action( 'wp_ajax_ncode-get-icons', [ $this, 'ncode_get_icons'] );

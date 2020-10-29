@@ -3,7 +3,7 @@
     if( !empty($default)){
         $i = 0;
         foreach( $default as $k=>$v){
-            $titlename = ($args[$k.'_title']) ?? $k;
+            $titlename = ($this->args[$k.'_title']) ?? $k;
         
             if( $repeater ){
                 $name_data = $array_dec.$attr['name']."[$k]";

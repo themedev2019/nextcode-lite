@@ -2266,3 +2266,83 @@ body.ncode-disabled:before { content: "" !important; position: fixed !important;
     margin-bottom: 10px;
 }
 
+
+/* content */
+.nextcode-section .settings-content .ncode-section.ncode-heading .ncode-fileds,
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-fileds {
+    width: 100%;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content {
+    padding: 0px;
+    background-color: transparent;
+}
+.nextcode-section .settings-content .ncode-section.ncode-content p {
+    margin: 0;
+    line-height: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #707171;
+    letter-spacing: .5px;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content > span {
+    margin: 0;
+    line-height: 25px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #707171;
+    letter-spacing: .5px;
+}
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv {
+    padding: 10px;
+    background-color: transparent;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.normal {
+    background-color: #efeded;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.success {
+    padding: 10px;
+    background-color: #d6e9c6;
+    border-color: #d6e9c6;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.success > p,
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.success > span{
+    color: #3c763d;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.info {
+    padding: 10px;
+    background-color: #bce8f1;
+    border-color: #bce8f1;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.info > p,
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.info > span{
+    color:#31708f;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.warning {
+    padding: 10px;
+    background-color: #faebcc;
+    border-color: #faebcc;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.warning > p,
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.warning > span{
+    color:#8a6d3b;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.danger {
+    padding: 10px;
+    background-color:#ebccd1;
+    border-color:#ebccd1;
+}
+
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.danger > p,
+.nextcode-section .settings-content .ncode-section.ncode-content .ncode-contentdiv.danger > span{
+    color:#a94442;
+}

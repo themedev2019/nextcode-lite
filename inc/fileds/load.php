@@ -28,6 +28,10 @@ Class Ncode_Load extends Ncode_common{
                 return Heading\Ncode_Heading::instance()->render($f, $this->params, $this->key );
             break;
 
+            case 'content':
+                return Content\Ncode_Content::instance()->render($f, $this->params, $this->key );
+            break;
+
             case 'select':
                 return Select\Ncode_Select::instance()->render($f, $this->params, $this->key );
             break;
