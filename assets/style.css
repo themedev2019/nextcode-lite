@@ -1718,7 +1718,7 @@ body.ncode-disabled:before { content: "" !important; position: fixed !important;
     left: auto;
     right: auto;
     background: #fff;
-    z-index: 99;
+    z-index: 999;
     border-radius: 5px;
     box-shadow: 0 2px 15px rgba(0,0,0,.3);
     opacity: 0;
@@ -1755,18 +1755,23 @@ body.ncode-disabled:before { content: "" !important; position: fixed !important;
     border: 8px solid transparent;
     border-bottom-color: #fff;
     transform: rotate(180deg);
-    z-index: 999;
+    z-index: 9999;
 }
 .ncode-popup-option .border-width-options.active-pop{
     opacity: 1;
     visibility: visible;
+}
+.ncode-popup-option .border-width-options.active-pop.fixed-popup{
+    position: fixed;
+    bottom: auto;
+    top: 100px;
 }
 
 .ncode-popup-option .border-style .iconbutton{
     display: inline-block;
     -webkit-border-radius: 3px 0 0 3px;
     border-radius: 3px;
-    padding: 5px;
+    padding: 0px;
     border: 1px solid #afabab;
     width: 31px;
     margin-left: 4px;
@@ -1777,6 +1782,9 @@ body.ncode-disabled:before { content: "" !important; position: fixed !important;
     background: #fff;
     cursor: pointer;
     font-size: 12px;
+}
+.ncode-popup-option .border-style .iconbutton > i{
+    padding: 8px;
 }
 .ncode-popup-option .border-style .iconbutton:focus,
 .ncode-popup-option .border-style .iconbutton:active{

@@ -70,45 +70,6 @@ Class Ncode_Link Extends Ncode_common{
 
     }
     
-    /*
-    ** Render css
-    */
-    public function css_render($output, $value, $fileds= []){
-        $selector = isset( $output['selector'] ) ? $output['selector'] : '';
-        $render = isset( $output['render'] ) ? $output['render'] : '';
-        $selectors = isset( $output['selectors'] ) ? $output['selectors'] : '';
-        $css_render = "";
-
-        if( empty($render) || is_array($value) ){
-           return;
-        }
-
-        if( is_array($selector) && !empty($selector) ){
-            foreach($selector as $vs){
-                if( empty($vs) ){
-                    continue;
-                }
-                $css_render .= "$vs { $render:$value; }";
-            }
-        }else{
-            $css_render .= "$selector { $render:$value; }";
-        }
-        
-        if( !empty($selectors) && is_array($selectors) ){
-            foreach($selectors as $ck=>$cv){
-                if( strstr($cv, "{{VALUE}}") ){
-                    $value_data = str_replace( "{{VALUE}}" , $value, $cv);
-                    $css_render .= "$ck { $value_data }";
-                }else{
-                    $css_render .= "$ck { $cv:$value; }";
-                }
-               
-            }
-        }
-
-        return $css_render;
-    }
-    
 	public static function instance(){
 		if (!self::$instance){
             self::$instance = new self();

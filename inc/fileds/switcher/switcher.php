@@ -78,19 +78,22 @@ Class Ncode_Switcher Extends Ncode_common{
         $selectors = isset( $output['selectors'] ) ? $output['selectors'] : '';
         $css_render = "";
 
-        if( empty($render) || is_array($value) ){
-           return;
+        if( is_array($value) || empty($value) ){ 
+            return;
         }
-
         if( is_array($selector) && !empty($selector) ){
-            foreach($selector as $vs){
-                if( empty($vs) ){
-                    continue;
+            if( !empty($render) && !is_array($value) ){ 
+                foreach($selector as $vs){
+                    if( empty($vs) ){
+                        continue;
+                    }
+                    $css_render .= "$vs { $render:$value; }";
                 }
-                $css_render .= "$vs { $render:$value; }";
             }
         }else{
-            $css_render .= "$selector { $render:$value; }";
+            if( !empty($render) && !is_array($value) ){
+                $css_render .= "$selector { $render:$value; }";
+            }
         }
         
         if( !empty($selectors) && is_array($selectors) ){

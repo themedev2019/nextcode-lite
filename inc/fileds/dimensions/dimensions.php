@@ -103,17 +103,19 @@ Class Ncode_Dimensions Extends Ncode_common{
             return;
         }
         
-        
-        $render = !empty($render) ? $render : 'color';
         if( is_array($selector) && !empty($selector) ){
-            foreach($selector as $vs){
-                if( empty($vs) ){
-                    continue;
+            if( !empty($render)){ 
+                foreach($selector as $vs){
+                    if( empty($vs) ){
+                        continue;
+                    }
+                    $css_render .= "$vs { $render:$render_css; }";
                 }
-                $css_render .= "$vs { $render:$render_css; }";
             }
         }else{
-            $css_render .= "$selector { $render:$render_css; }";
+            if( !empty($render)){ 
+                $css_render .= "$selector { $render:$render_css; }";
+            }
         }
 
         if( !empty($selectors) && is_array($selectors) ){

@@ -72,6 +72,7 @@ Class Ncode_Accordion Extends Ncode_common{
         	
     }
     
+    
 	public static function instance(){
 		if (!self::$instance){
             self::$instance = new self();

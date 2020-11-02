@@ -356,9 +356,19 @@ Class Ncode_Create_Option{
         $screen = get_current_screen();
         
 		if(  in_array($screen->id, $enque)){			
-			self::instance()->render_script_global();
+            self::instance()->render_script_global();
+
+            // Font awesome 4 and 5 loader
+            $min = '.min';
+            if ( apply_filters( 'ncode_fa4', false ) ) {
+                wp_enqueue_style( 'ncode-fa', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome'. $min .'.css', array(), '4.7.0', 'all' );
+            } else {
+                wp_enqueue_style( 'ncode-fa5', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all'. $min .'.css', array(), '5.13.0', 'all' );
+            }
+
         }
 
+        
         do_action( 'ncode_enqueue_admin' );
     }
 
@@ -391,28 +401,16 @@ Class Ncode_Create_Option{
         wp_enqueue_script('ncode-code');
         wp_enqueue_script('ncode-code-php');
         
-
-            // Font awesome 4 and 5 loader
-        $min = '.min';
-        if ( apply_filters( 'ncode_fa4', false ) ) {
-            wp_enqueue_style( 'ncode-fa', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome'. $min .'.css', array(), '4.7.0', 'all' );
-        } else {
-            wp_enqueue_style( 'ncode-fa5', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all'. $min .'.css', array(), '5.13.0', 'all' );
-            wp_enqueue_style( 'ncode-fa5-v4-shims', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/v4-shims'. $min .'.css', array(), '5.13.0', 'all' );
-        }
     }
 
     
     public static function render_script_public(){
-        // Font awesome 4 and 5 loader
         $min = '.min';
         if ( apply_filters( 'ncode_fa4', false ) ) {
             wp_enqueue_style( 'ncode-fa', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome'. $min .'.css', array(), '4.7.0', 'all' );
         } else {
             wp_enqueue_style( 'ncode-fa5', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all'. $min .'.css', array(), '5.13.0', 'all' );
-            wp_enqueue_style( 'ncode-fa5-v4-shims', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/v4-shims'. $min .'.css', array(), '5.13.0', 'all' );
         }
-        
         wp_enqueue_style('nextcode-public');
 
         do_action( 'ncode_enqueue_public' );

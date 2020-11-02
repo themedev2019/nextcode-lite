@@ -76,6 +76,47 @@ Class Ncode_Media Extends Ncode_common{
         // code
     }
 
+    public function css_render($output, $value, $fileds= []){
+        $selector = isset( $output['selector'] ) ? $output['selector'] : '';
+        $render = isset( $output['render'] ) ? $output['render'] : '';
+        $selectors = isset( $output['selectors'] ) ? $output['selectors'] : '';
+        $css_render = "";
+
+        $value = isset($value['url']) ? $value['url'] : '';
+
+        if( is_array($value) || empty($value) ){ 
+            return;
+        }
+        if( is_array($selector) && !empty($selector) ){
+            if( !empty($render) && !is_array($value) ){ 
+                foreach($selector as $vs){
+                    if( empty($vs) ){
+                        continue;
+                    }
+                    $css_render .= "$vs { $render:$value; }";
+                }
+            }
+        }else{
+            if( !empty($render) && !is_array($value) ){
+                $css_render .= "$selector { $render:$value; }";
+            }
+        }
+        
+        if( !empty($selectors) && is_array($selectors) ){
+            foreach($selectors as $ck=>$cv){
+                if( strstr($cv, "{{VALUE}}") ){
+                    $value_data = str_replace( "{{VALUE}}" , $value, $cv);
+                    $css_render .= "$ck { $value_data }";
+                }else{
+                    $css_render .= "$ck { $cv:$value; }";
+                }
+               
+            }
+        }
+
+        return $css_render;
+    }
+
 	public static function instance(){
 		if (!self::$instance){
             self::$instance = new self();

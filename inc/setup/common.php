@@ -94,6 +94,7 @@ class Ncode_common
           return;
       }
       $sec = [];
+      
       foreach($sections as $k=>$v){
           if( !isset($v['fields']) || empty($v['fields']) ){
               continue;
@@ -104,11 +105,95 @@ class Ncode_common
                   $id = $fd['id'];
                   $sec[$k][$id]['type'] = ($fd['type']) ? $fd['type'] : '';
                   $sec[$k][$id]['output'] = $fd['output'];
+              } else{
+                if( !is_array($fd) || empty($fd) || !isset($fd['type']) || empty($fd['type']) ){
+                  continue;
+                }
+                $type = ($fd['type']) ?? ''; 
+                if( in_array( $type, ['accordion', 'tab', 'tabbed', 'tabs', 'fieldset', 'repeater', 'group'])  ){
+                  $res = $this->self_output($fd);
+                  if( is_array($res) && !empty($res) ){
+                      foreach($res as $kk=>$vv){
+                        foreach($vv as $d){
+                          if( empty($d) ){
+                              continue;
+                          }
+                          if( isset($d['output']) && !empty($d['output']) ){
+                              $id = $d['id'];
+                              $sec[$k][$kk][$id]['type'] = ($d['type']) ? $d['type'] : '';
+                              $sec[$k][$kk][$id]['output'] = $d['output'];
+                          }
+                        }
+                        
+                      }
+                  }
+                }
+                
               }
           }
       }
     return $sec;
   }
+
+  private function self_output($fd){
+    
+    $arr = [];
+
+    $type = ($fd['type']) ?? ''; 
+    $id = ($fd['id']) ?? ''; 
+    if( in_array( $type, ['accordion'])  ){
+       $array = ($fd['accordions']) ?? '';
+       if( !empty($array) && !empty($id) ){
+          
+          foreach($array as $k=>$v){
+            $fileds = ($v['fields']) ?? '';
+            if( empty($fileds) ){
+              continue;
+            }
+            foreach($fileds as $vv){
+              if( isset($vv['output']) && !empty($vv['output']) ){
+                $arr[$id] = $fileds;
+              }
+            }
+            
+          }
+       }
+    }
+
+    if( in_array( $type, ['tab', 'tabbed', 'tabs'])  ){
+      $array = ($fd['tabs']) ?? '';
+      if( !empty($array) && !empty($id) ){
+         
+         foreach($array as $k=>$v){
+           $fileds = ($v['fields']) ?? '';
+           if( empty($fileds) ){
+             continue;
+           }
+           foreach($fileds as $vv){
+             if( isset($vv['output']) && !empty($vv['output']) ){
+               $arr[$id] = $fileds;
+             }
+           }
+           
+         }
+      }
+    }
+
+    if( in_array( $type, ['fieldset', 'repeater', 'group'])  ){
+      $fileds = ($fd['fields']) ?? '';
+      if( !empty($fileds) ){
+        foreach($fileds as $vv){
+          if( isset($vv['output']) && !empty($vv['output']) ){
+            $arr[$id] = $fileds;
+          }
+        }
+      }
+    }
+    
+    return $arr;
+    
+  }
+
   public function set_action( $sections ){
         if( empty($sections)){
             return;
@@ -607,122 +692,140 @@ class Ncode_common
   
     $settings = apply_filters( 'ncode_fields_css_settings_before', $settings);
     $set_outputs = apply_filters( 'ncode_fields_css_output_before', $set_outputs, $settings);
-
+    
     if( !empty($set_outputs) ){
-        
         foreach($set_outputs as $k=>$va){
-
             if( empty($va)){
                 continue;
             }
             foreach($va as $k1=>$v){
-              
-               $type = ($v['type']) ?? '';
-               $output = ($v['output']) ?? '';
-               $value = ($settings[$k][$k1]) ?? '';
-               if( empty($type) || empty( $output) || empty($value) ){
-                  continue;
-               }
-               
-               $selector = isset( $output['selector'] ) ? $output['selector'] : '';
-               $render = isset( $output['render'] ) ? $output['render'] : '';
-               $selectors = isset( $output['selectors'] ) ? $output['selectors'] : '';
-
-              switch($type){
-
-                  case 'background':
-                  case 'gradient':
-                    $css_render .= Fileds\Background\Ncode_Background::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'color':
-                    $css_render .= Fileds\Color\Ncode_Color::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'font':
-                  case 'typography':
-                    $css_render .= Fileds\Typography\Ncode_Typography::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'borders':
-                  case 'border':
-                  case 'border-radius':
-                      $css_render .= Fileds\Border\Ncode_Border::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'shadow':
-                  case 'box-shadow':
-                  case 'box_shadow':
-                      $css_render .= Fileds\Box_Shadow\Ncode_Box_Shadow::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'dimensions':
-                  case 'dimension':
-                  case 'spacing':
-                  case 'margin':
-                  case 'padding':
-                      $css_render .= Fileds\Dimensions\Ncode_Dimensions::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'choose':
-                    $css_render .= Fileds\Choose\Ncode_Choose::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'range':
-                  case 'slider':
-                      $css_render .= Fileds\Slider\Ncode_Slider::instance()->css_render($output, $value, $fileds);
-                  break;
-      
-                  case 'number':
-                      $css_render .= Fileds\Number\Ncode_Number::instance()->css_render($output, $value, $fileds);
-                  break;
-      
-                  case 'spinner':
-                      $css_render .= Fileds\Spinner\Ncode_Spinner::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'imageselect':
-                  case 'image-select':
-                  case 'image_select':
-                      $css_render .= Fileds\Image_Select\Ncode_Image_Select::instance()->css_render($output, $value, $fileds);
-                  break;
-      
-                  case 'radio':
-                  case 'checkbox':
-                      $css_render .= Fileds\Checkbox\Ncode_Checkbox::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'text':
-                      $css_render .= Fileds\Text\Ncode_Text::instance()->css_render($output, $value, $fileds);  
-                  break;
-
-                  case 'select':
-                      $css_render .= Fileds\Select\Ncode_Select::instance()->css_render($output, $value, $fileds); 
-                  break;
-
-                  case 'switcher':
-                      $css_render .= Fileds\Switcher\Ncode_Switcher::instance()->css_render($output, $value, $fileds);
-                  break;
-
-                  case 'icon':
-                      $css_render .= Fileds\Icon\Ncode_Icon::instance()->css_render($output, $value, $fileds); 
-                  break;
-
-                  case 'link':
-                    $css_render .= Fileds\Link\Ncode_Link::instance()->css_render($output, $value, $fileds); 
-                break;
-
+              if( empty($v) ){
+                continue;
               }
-
+              $type = ($v['type']) ?? '';
+              if( !empty($type) ){
+                $output = ($v['output']) ?? '';
+                $value = ($settings[$k][$k1]) ?? '';
+                if( empty($type) || empty( $output) || empty($value) ){
+                   continue;
+                }
+                $selector = isset( $output['selector'] ) ? $output['selector'] : '';
+                $render = isset( $output['render'] ) ? $output['render'] : '';
+                $selectors = isset( $output['selectors'] ) ? $output['selectors'] : '';
+                $css_render .= self::multiple_render_css($type, $output, $value, $fileds);
+              } else {
+                foreach($v as $kk=>$vv){
+                    $id = ($vv['id']) ?? '';
+                    $type = ($vv['type']) ?? '';
+                    $output = ($vv['output']) ?? '';
+                    $value = isset($settings[$k][$k1][$kk]) ? $settings[$k][$k1][$kk] : '';
+                    if( empty($type) || empty( $output) || empty($value) ){
+                      continue;
+                    }
+                    $selector = isset( $output['selector'] ) ? $output['selector'] : '';
+                    $render = isset( $output['render'] ) ? $output['render'] : '';
+                    $selectors = isset( $output['selectors'] ) ? $output['selectors'] : '';
+                    $css_render .= self::multiple_render_css($type, $output, $value, $fileds);
+                }
+              }
             }
-
         }
-      
     }
-
     $output_data = apply_filters( 'ncode_fields_css_render_before', $css_render);
-
     return $output_data;
+  }
+
+  private static function multiple_render_css($type, $output,$value, $fileds){
+    $css_render = "";
+     switch($type){
+         case 'background':
+         case 'gradient':
+           $css_render .= Fileds\Background\Ncode_Background::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'color':
+           $css_render .= Fileds\Color\Ncode_Color::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'font':
+         case 'typography':
+           $css_render .= Fileds\Typography\Ncode_Typography::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'borders':
+         case 'border':
+         case 'border-radius':
+             $css_render .= Fileds\Border\Ncode_Border::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'shadow':
+         case 'box-shadow':
+         case 'box_shadow':
+             $css_render .= Fileds\Box_Shadow\Ncode_Box_Shadow::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'dimensions':
+         case 'dimension':
+         case 'spacing':
+         case 'margin':
+         case 'padding':
+             $css_render .= Fileds\Dimensions\Ncode_Dimensions::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'choose':
+           $css_render .= Fileds\Choose\Ncode_Choose::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'range':
+         case 'slider':
+             $css_render .= Fileds\Slider\Ncode_Slider::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'number':
+             $css_render .= Fileds\Number\Ncode_Number::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'spinner':
+             $css_render .= Fileds\Spinner\Ncode_Spinner::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'imageselect':
+         case 'image-select':
+         case 'image_select':
+             $css_render .= Fileds\Image_Select\Ncode_Image_Select::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'radio':
+         case 'checkbox':
+             $css_render .= Fileds\Checkbox\Ncode_Checkbox::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'text':
+             $css_render .= Fileds\Text\Ncode_Text::instance()->css_render($output, $value, $fileds);  
+         break;
+
+         case 'select':
+             $css_render .= Fileds\Select\Ncode_Select::instance()->css_render($output, $value, $fileds); 
+         break;
+
+         case 'switcher':
+             $css_render .= Fileds\Switcher\Ncode_Switcher::instance()->css_render($output, $value, $fileds);
+         break;
+
+         case 'icon':
+             $css_render .= Fileds\Icon\Ncode_Icon::instance()->css_render($output, $value, $fileds); 
+         break;
+
+         case 'upload':
+           $css_render .= Fileds\Upload\Ncode_Upload::instance()->css_render($output, $value, $fileds); 
+         break;
+
+         case 'media':
+           $css_render .= Fileds\Media\Ncode_Media::instance()->css_render($output, $value, $fileds); 
+         break;
+     }
+
+   return $css_render;
   }
     
   public static function sanitize($value, $senitize_func = 'sanitize_text_field'){
