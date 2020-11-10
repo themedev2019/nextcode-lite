@@ -1,4 +1,9 @@
-
+<?php
+ $name = "[$id]";
+ if($repeater){
+    $name = ($this->args['attr']['name']) ?? '';
+ }
+?>
 <div class="ncode-popup-option ncode-background-option" >
      <div class="border-style">
         <?php
@@ -9,7 +14,7 @@
             'title'   => 'Color',
             'default' => $colorvalue,
             'attr' => [
-                'name' => "[$id][color]"
+                'name' => $name."[color]"
             ],
             'repeater' => true
          );
@@ -43,7 +48,7 @@
                 'title'   => ($v['title']) ?? '',
                 'default' => $value,
                 'attr' => [
-                    'name' => "[$id][$k]"
+                    'name' => $name."[$k]"
                 ],
                 'repeater' => true
                 ];

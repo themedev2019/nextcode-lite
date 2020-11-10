@@ -426,7 +426,7 @@ class Ncode_common
               's'              => $term,
               'post_type'      => $option,
               'post_status'    => 'publish',
-              'posts_per_page' => 25,
+              'posts_per_page' => -1,
             ) ) );
 
           } else {
@@ -434,6 +434,7 @@ class Ncode_common
             $query          = new \WP_Query( wp_parse_args( $query_args, array(
               'post_type'   => $option,
               'post_status' => 'publish',
+              'posts_per_page' => -1,
             ) ) );
 
           }

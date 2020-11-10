@@ -120,6 +120,21 @@ Class NCOPT{
         Ncode_Options::instance()->render_typography_enqueue();
     }
 
+    public static function auto_load( $dir, $noload = [], $ext = ['php', 'PHP']){
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST, 
+            RecursiveIteratorIterator::CATCH_GET_CHILD
+        );
+        foreach($iterator as $file) {
+            if( is_file($file->getPathname()) ){
+                $fl = pathinfo($file->getPathname());
+                if( isset($fl['extension']) && in_array($fl['extension'], $ext) && !in_array($fl['basename'], $noload) ){
+                    include_once $file->getPathname();
+                }
+            }
+        }
+    }
+
 }
 
 if( !function_exists('ncode_get_options') ){

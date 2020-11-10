@@ -1,3 +1,10 @@
+<?php
+ $nameBac = "[$id]";
+ if($repeater){
+    $nameBac = ($this->args['attr']['name']) ?? '';
+ }
+?>
+
 <?php if( $background_image ){?>
 <div class="ncode-popup-option ncode-background-option" >
     <div class="border-style" style="margin-bottom: 10px;">
@@ -10,7 +17,7 @@
             'title'   => 'Image',
             'default' => $imagevalue,
             'attr' => [
-                'name' => "[$id][image]",
+                'name' => $nameBac."[image]",
             ],
             'repeater' => true,
             'preview' => true
@@ -42,7 +49,7 @@
                 $value = ($this->args['default']['image'][$k]) ?? '';
                 $posi_i['id'] = $id.'-image-'.$k;
                 $posi_i['type'] = ($v['type']) ?? '';
-                $posi_i['attr']['name'] = "[$id][image][$k]";
+                $posi_i['attr']['name'] = $nameBac."[image][$k]";
                 $posi_i['default'] = $value;
                 $posi_i['repeater'] = true;
                 $posi_i['options'] = $options;
@@ -71,7 +78,7 @@
                 'title'   => 'Color',
                 'default' => $colorvalue,
                 'attr' => [
-                    'name' => "[$id][color]"
+                    'name' => $nameBac."[color]"
                 ],
                 'repeater' => true
             );
@@ -101,8 +108,8 @@
                 $valueBg = ($this->args['default']['bgtype']) ?? 'classic';
                 $bg['id'] = $id.'-bgtype';
                 $bg['type'] = 'choose';
-                $bg['attr']['name'] = "[$id][bgtype]";
-                $bg['attr']['nxtarget-toggle'] = ".nxtarget-toggle-background";
+                $bg['attr']['name'] = $nameBac."[bgtype]";
+                $bg['attr']['nxtarget-toggle'] = ".nxtarget-toggle-background__".$id;
                 $bg['attr']['nxtarget-value'] = "gradient";
                 $bg['attr']['nxtarget-condition'] = "==";
                 $bg['default'] = $valueBg;
@@ -134,7 +141,7 @@
             ]);
             foreach($typeArry as $k=>$v){
             ?>
-            <div class="<?php echo ($k == 'color2') ? 'border-type' : 'border-width';?> nxtarget-toggle-background">
+            <div class="<?php echo ($k == 'color2') ? 'border-type' : 'border-width';?> nxtarget-toggle-background__<?php echo esc_attr($id);?>">
                 <label class="ncode-dimension-label"><?php _e(($v['title']) ?? '', 'nextcode');?></label>
                 <?php
                 $value = ($this->args['default'][$k]) ?? '';
@@ -144,7 +151,7 @@
                     'title'   => ($v['title']) ?? '',
                     'default' => $value,
                     'attr' => [
-                        'name' => "[$id][$k]"
+                        'name' => $nameBac."[$k]"
                     ],
                     'repeater' => true
                 );
@@ -156,7 +163,7 @@
                 $value = ($this->args['default']['type']) ?? '';
                 $typarr['id'] = $id.'-type';
                 $typarr['type'] = 'select';
-                $typarr['attr']['name'] = "[$id][type]";
+                $typarr['attr']['name'] = $nameBac."[type]";
                 $typarr['default'] = $value;
                 $typarr['repeater'] = true;
                 $typarr['options'] = apply_filters( 'ncode_fields_background_type', [
@@ -164,7 +171,7 @@
                     'radial' => esc_html__( 'Radial', 'nextcode' ),
                 ]);
                 ?>
-                <div class="border-type nxtarget-toggle-background">
+                <div class="border-type nxtarget-toggle-background__<?php echo esc_attr($id);?>">
                     <label for="<?php _e($id.'-type');?>" class="ncode-dimension-label"><?php _e('Type', 'nextcode');?></label>
                     <?php
                     $this->render_filed_data($typarr, $this->settings, $this->key,  true);
@@ -175,12 +182,12 @@
                 $value = ($this->args['default']['position']) ?? '';
                 $posi['id'] = $id.'-position';
                 $posi['type'] = 'select';
-                $posi['attr']['name'] = "[$id][position]";
+                $posi['attr']['name'] = $nameBac."[position]";
                 $posi['default'] = $value;
                 $posi['repeater'] = true;
                 $posi['options'] = $this->image_position();
                 ?>
-                <div class="border-type nxtarget-toggle-background">
+                <div class="border-type nxtarget-toggle-background__<?php echo esc_attr($id);?>">
                     <label for="<?php _e($id.'-position');?>" class="ncode-dimension-label"><?php _e('Position', 'nextcode');?></label>
                     <?php
                     $this->render_filed_data($posi, $this->settings, $this->key,  true);

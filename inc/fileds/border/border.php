@@ -107,7 +107,10 @@ Class Ncode_Border Extends Ncode_common{
         $radius_right = ($value['radius_right']) ?? '';
         $radius_bottom = ($value['radius_bottom']) ?? '';
         $radius_left = ($value['radius_left']) ?? '';
-
+        
+        if($style == 'default'){
+            return $css_render;
+        }
         $render_css = '';
         if( !empty($color) ){
             $render_css .= "border-color: $color;";

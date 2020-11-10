@@ -159,6 +159,9 @@ body.ncode-disabled:before { content: "" !important; position: fixed !important;
     margin-top: -4px;
     z-index: 5;
 }
+.dark-mode .nextcode-nav-menu .nav-setting li.active:after {
+    right: 0px;
+}
 
 .nextcode-nav-menu .nav-setting li.active a i{
     color: #ff0099;

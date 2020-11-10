@@ -1,17 +1,23 @@
-
+<?php
+ $name = "[$id]";
+ if($repeater){
+    $name = ($this->args['attr']['name']) ?? '';
+ }
+?>
 <div class="ncode-popup-option ncode-border-option">
      <div class="border-style">
          <?php
          $value = ($this->args['default']['style']) ?? '';
          $select['id'] = $id.'-style';
          $select['type'] = 'select';
-         $select['attr']['name'] = "[$id][style]";
-         $select['attr']['nxtarget-toggle'] = ".nxtarget-toggle-border";
+         $select['attr']['name'] = $name."[style]";
+         $select['attr']['nxtarget-toggle'] = ".nxtarget-toggle-border__".$id;
          $select['attr']['nxtarget-value'] = "none";
          $select['attr']['nxtarget-condition'] = "!=";
          $select['default'] = $value;
          $select['repeater'] = true;
          $select['options'] = apply_filters( 'ncode_fields_border_style', [
+             'default' => esc_html__( 'Default', 'nextcode' ), 
              'none' => esc_html__( 'None', 'nextcode' ),
              'solid' => esc_html__( 'Solid', 'nextcode' ),
              'double' => esc_html__( 'Double', 'nextcode' ),
@@ -35,32 +41,32 @@
             'title'   => 'Color',
             'default' => $colorvalue,
             'attr' => [
-                'name' => "[$id][color]"
+                'name' =>  $name."[color]"
             ],
             'repeater' => true
          );
         ?>
-        <div class="border-color nxtarget-toggle-border">
+        <div class="border-color nxtarget-toggle-border__<?php echo esc_attr($id);?>">
             <label for="<?php _e($id.'-color');?>" class="ncode-dimension-label"><?php _e('Color', 'nextcode');?></label>     
             
             <?php
             $this->render_filed_data($color, $this->settings, $this->key,  true);
             ?> 
         </div>
-        <button type="button" class="border-color iconbutton nxtarget-toggle-border">
+        <button type="button" class="border-color iconbutton nxtarget-toggle-border__<?php echo esc_attr($id);?>">
             <i class="far fa-edit"></i>
         </button>
     </div>
     <div class="border-width-options">
          <div class="npopup-content">
-            <div class="border-width nxtarget-toggle-border">
+            <div class="border-width nxtarget-toggle-border__<?php echo esc_attr($id);?>">
                 <label class="ncode-dimension-label"><?php _e('Width', 'nextcode');?></label>
                 <?php
                 $this->render_filed_data($this->args, $this->settings, $this->key,  true);
                 ?>
             </div>
             <?php if($radius_options){?>
-            <div class="border-width radius nxtarget-toggle-border">
+            <div class="border-width radius nxtarget-toggle-border__<?php echo esc_attr($id);?>">
                 <label class="ncode-dimension-label"><?php _e('Radius [<small>PX</small>]', 'nextcode');?></label>
                 <?php
                 $this->args['dimensions'] = apply_filters( 'ncode_fields_border_radius_dimensions', array(

@@ -1,19 +1,25 @@
-
+<?php
+ $name = "[$id]";
+ if($repeater){
+    $name = ($this->args['attr']['name']) ?? '';
+ }
+?>
 <div class="ncode-popup-option ncode-shadow-option" >
      <div class="border-style">
          <?php
-         $value = ($this->args['default']['type']) ?? '';
+         $typeValue = ($this->args['default']['type']) ?? '';
          $select['id'] = $id.'-type';
          $select['type'] = 'select';
-         $select['attr']['name'] = "[$id][type]";
-         $select['attr']['nxtarget-toggle'] = ".nxtarget-toggle-boxshadow";
+         $select['attr']['name'] = $name."[type]";
+         $select['attr']['nxtarget-toggle'] = ".nxtarget-toggle-boxshadow__".$id;
          $select['attr']['nxtarget-value'] = "no-shadow";
          $select['attr']['nxtarget-condition'] = "!=";
-         $select['default'] = $value;
+         $select['default'] = $typeValue;
          $select['repeater'] = true;
          $select['options'] = apply_filters( 'ncode_fields_shadow_type', [
+             'default' => esc_html__( 'Default', 'nextcode' ),
              'no-shadow' => esc_html__( 'None', 'nextcode' ),
-             '' => esc_html__( 'Outline', 'nextcode' ),
+             'outline' => esc_html__( 'Outline', 'nextcode' ),
              'inset' => esc_html__( 'Inset', 'nextcode' ),
          ]);
          ?>
@@ -32,19 +38,19 @@
             'title'   => 'Color',
             'default' => $colorvalue,
             'attr' => [
-                'name' => "[$id][color]"
+                'name' => $name."[color]"
             ],
             'repeater' => true
          );
         ?>
-        <div class="border-color nxtarget-toggle-boxshadow">
+        <div class="border-color nxtarget-toggle-boxshadow__<?php echo esc_attr($id);?>">
             <label for="<?php _e($id.'-color');?>" class="ncode-dimension-label"><?php _e('Color', 'nextcode');?></label>     
             <?php
             $this->render_filed_data($color, $this->settings, $this->key,  true);
             ?>
              
         </div>
-        <button type="button" class="border-color iconbutton nxtarget-toggle-boxshadow">
+        <button type="button" class="border-color iconbutton nxtarget-toggle-boxshadow__<?php echo esc_attr($id);?>">
             <i class="far fa-edit"></i>
         </button>
     </div>
@@ -59,7 +65,7 @@
             ]);
             foreach($typeArry as $k=>$v){
             ?>
-            <div class="border-width nxtarget-toggle-boxshadow">
+            <div class="border-width nxtarget-toggle-boxshadow__<?php echo esc_attr($id);?>">
                 <label class="ncode-dimension-label"><?php _e($v, 'nextcode');?></label>
                 <?php
                 $value = ($this->args['default'][$k]) ?? '';
@@ -69,7 +75,7 @@
                 'title'   => $v,
                 'default' => $value,
                 'attr' => [
-                    'name' => "[$id][$k]"
+                    'name' => $name."[$k]"
                 ],
                 'repeater' => true
                 );

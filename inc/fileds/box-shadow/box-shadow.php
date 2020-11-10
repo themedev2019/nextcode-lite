@@ -94,15 +94,23 @@ Class Ncode_Box_Shadow Extends Ncode_common{
         $vertical = ($value['vertical']) ?? '0';
         $blur = ($value['blur']) ?? '0';
         $spread = ($value['spread']) ?? '0';
-       
+
+        if($type == 'default'){
+            return $css_render;
+        }
+        if($type == 'no-shadow'){
+            $render_css = 'none';
+        }
+        if($type == 'outline'){
+            $type = '';
+        }
+
         if( $horizontal != '' || $vertical != '' || $blur != '' || $spread != ''){
             $render_css = ''.$horizontal.'px '.$vertical.'px '.$blur.'px '.$spread.'px '.$color.' '.$type;
         } else{
             return;
         }
-        if($type == 'no-shadow'){
-            $render_css = 'none';
-        }
+        
         
         $render = !empty($render) ? $render : 'box-shadow';
 
