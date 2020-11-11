@@ -144,7 +144,8 @@ class Ncode_common
     if( in_array( $type, ['accordion'])  ){
        $array = ($fd['accordions']) ?? '';
        if( !empty($array) && !empty($id) ){
-          
+          $i = 0;
+          $fil = [];
           foreach($array as $k=>$v){
             $fileds = ($v['fields']) ?? '';
             if( empty($fileds) ){
@@ -152,30 +153,35 @@ class Ncode_common
             }
             foreach($fileds as $vv){
               if( isset($vv['output']) && !empty($vv['output']) ){
-                $arr[$id] = $fileds;
+                $fil[$i]  = $vv;
+                $i++;
               }
             }
             
           }
+          $arr[$id] = $fil;
        }
     }
 
     if( in_array( $type, ['tab', 'tabbed', 'tabs'])  ){
       $array = ($fd['tabs']) ?? '';
       if( !empty($array) && !empty($id) ){
-         
+         $i = 0;
+         $fil = [];
          foreach($array as $k=>$v){
            $fileds = ($v['fields']) ?? '';
            if( empty($fileds) ){
              continue;
            }
+           
            foreach($fileds as $vv){
              if( isset($vv['output']) && !empty($vv['output']) ){
-               $arr[$id] = $fileds;
+              $fil[$i]  = $vv;
+              $i++;
              }
            }
-           
          }
+         $arr[$id] = $fil;
       }
     }
 
@@ -189,7 +195,7 @@ class Ncode_common
         }
       }
     }
-    
+   
     return $arr;
     
   }
@@ -693,7 +699,6 @@ class Ncode_common
   
     $settings = apply_filters( 'ncode_fields_css_settings_before', $settings);
     $set_outputs = apply_filters( 'ncode_fields_css_output_before', $set_outputs, $settings);
-    
     if( !empty($set_outputs) ){
         foreach($set_outputs as $k=>$va){
             if( empty($va)){
@@ -717,16 +722,16 @@ class Ncode_common
               } else {
                 foreach($v as $kk=>$vv){
                     $id = ($vv['id']) ?? '';
-                    $type = ($vv['type']) ?? '';
+                    $type1 = ($vv['type']) ?? '';
                     $output = ($vv['output']) ?? '';
                     $value = isset($settings[$k][$k1][$kk]) ? $settings[$k][$k1][$kk] : '';
-                    if( empty($type) || empty( $output) || empty($value) ){
+                    if( empty($type1) || empty( $output) || empty($value) ){
                       continue;
                     }
                     $selector = isset( $output['selector'] ) ? $output['selector'] : '';
                     $render = isset( $output['render'] ) ? $output['render'] : '';
                     $selectors = isset( $output['selectors'] ) ? $output['selectors'] : '';
-                    $css_render .= self::multiple_render_css($type, $output, $value, $fileds);
+                    $css_render .= self::multiple_render_css($type1, $output, $value, $fileds);
                 }
               }
             }
